@@ -98,7 +98,8 @@ function TodoApp() {
                         {editingTodo && editingTodo.id === todo.id ? (
                             <input 
                                 type='text' 
-                                value={editingTodo.name} 
+                                value={editingTodo.name}
+                                className="editInput"
                                 onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
                                 onKeyPress={(e) => {
                                   if (e.key == 'Enter') {
