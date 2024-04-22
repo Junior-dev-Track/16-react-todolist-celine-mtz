@@ -67,11 +67,11 @@ h2 {
   border-radius: 5px;
   color: #ffffff;
   padding: 5px 10px;
-  cursor: pointer;
   opacity: 0.5;
 }
 
 .buttonDeleteChecked {
+  cursor: pointer;
   opacity: 1;
 }
 

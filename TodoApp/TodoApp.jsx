@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function TodoApp() {
     // states
-    const initialTodos = [
+    const initialTodos = JSON.parse(localStorage.getItem('todos')) || [
       { name: 'Learn React', id: 0, done: false },
       { name: 'Be Awesome!', id: 1, done: false },
       { name: 'Finish this app', id: 2, done: false },
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [newTodo, setNewTodo] = useState('');
+
+    // Save list
+    useEffect(() => {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
 
     // comportements
     const handleSubmit = (event) => {
@@ -83,12 +88,13 @@ function TodoApp() {
                         checked={todo.done}
                         onChange={() => handleCheckboxChange(todo.id)}
                         key={todo.id}
-                      /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>{todo.name}</span>
+                      /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>
+                        {todo.name} </span>
                       <button 
                         onClick={() => handleDelete(todo.id)} 
                         className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
                         disabled={!todo.done}
-                      > Delete Todo
+                      >  Delete Todo
                       </button>
                   </li>
               ))}
