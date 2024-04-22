@@ -53,6 +53,10 @@ ul {
   line-height: 2rem;
 }
 
+.strikeThrough {
+  text-decoration: line-through;
+}
+
 h2 {
   margin: 0;
 }
@@ -64,7 +68,11 @@ h2 {
   color: #ffffff;
   padding: 5px 10px;
   cursor: pointer;
+  opacity: 0.5;
+}
 
+.buttonDeleteChecked {
+  opacity: 1;
 }
 
 /* :root {

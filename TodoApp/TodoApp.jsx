@@ -3,9 +3,9 @@ import { useState } from "react";
 function TodoApp() {
     // states
     const initialTodos = [
-      { title: 'Learn React', id: 0, checked: false },
-      { title: 'Be Awesome!', id: 1, checked: false },
-      { title: 'Finish this app', id: 2, checked: false },
+      { name: 'Learn React', id: 0, done: false },
+      { name: 'Be Awesome!', id: 1, done: false },
+      { name: 'Finish this app', id: 2, done: false },
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [newTodo, setNewTodo] = useState('');
@@ -15,9 +15,9 @@ function TodoApp() {
       event.preventDefault();
       
       const id = new Date().getTime();
-      const title = newTodo;
+      const name = newTodo;
 
-      const todoToAdd = {title, id, checked: false};
+      const todoToAdd = {name, id, done: false};
       handleAdd(todoToAdd);
       setNewTodo('');
     };
@@ -33,9 +33,17 @@ function TodoApp() {
     };
 
     const handleCheckboxChange = (id) => {
-      setTodos(todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      ));
+      const newTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          todo.done = !todo.done;
+        }
+        return todo;
+      });
+      setTodos(newTodos);
+    
+      // setTodos(todos.map(todo =>
+      //   todo.id === id ? { ...todo, done: !todo.done } : todo
+      // ));
     }
 
     const handleDelete = (id) => {
@@ -70,10 +78,18 @@ function TodoApp() {
                   <li key={todo.id}>
                       <input 
                         type='checkbox'
-                        checked={todo.checked}
+                        id={todo.id}
+                        name={todo.name}
+                        checked={todo.done}
                         onChange={() => handleCheckboxChange(todo.id)}
                         key={todo.id}
-                      /> {todo.title} <button onClick={() => handleDelete(todo.id)} className='buttonDelete'>Delete Todo</button>
+                      /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>{todo.name}</span>
+                      <button 
+                        onClick={() => handleDelete(todo.id)} 
+                        className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
+                        disabled={!todo.done}
+                      > Delete Todo
+                      </button>
                   </li>
               ))}
           </ul>
