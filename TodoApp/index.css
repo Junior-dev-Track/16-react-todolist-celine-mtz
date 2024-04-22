@@ -24,7 +24,7 @@ h1 {
 }
 
 .content {
-  width: 70%;
+  /* width: 70%; */
   margin: auto;
 }
 
@@ -64,13 +64,15 @@ h1 {
 
 .todo-list {
   padding: 1rem;
+  min-width: 300px;
+  max-width: 400px;
+  margin: auto;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
   line-height: 2rem;
-  width: 350px;
   padding: 10px;
   margin: 20px auto;
   border: 1px solid #dadada;
@@ -97,6 +99,17 @@ h2 {
 
 .todo-name {
   width: 207px;
+}
+
+.buttonEdit, 
+.buttonSave {
+  background-color: #10c400;
+  border: 1px solid #10c400;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 5px 10px;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 .buttonDelete {

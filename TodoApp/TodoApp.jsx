@@ -7,6 +7,7 @@ function TodoApp() {
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [newTodo, setNewTodo] = useState('');
+    const [editingTodo, setEditingTodo] = useState(null);
 
     // Save list
     useEffect(() => {
@@ -43,10 +44,17 @@ function TodoApp() {
         return todo;
       });
       setTodos(newTodos);
-    
-      // setTodos(todos.map(todo =>
-      //   todo.id === id ? { ...todo, done: !todo.done } : todo
-      // ));
+    }
+
+    const handleEdit = (id) => {
+      const todo = todos.find(todo => todo.id === id);
+      setEditingTodo(todo);
+    }
+
+    const handleSaveEdit = (id, newName) => {
+      const newTodos = todos.map(todo => todo.id === id ? {...todo, name: newName } : todo);
+      setTodos(newTodos);
+      setEditingTodo(null); // Corrected typo and state variable name
     }
 
     const handleDelete = (id) => {
@@ -75,7 +83,7 @@ function TodoApp() {
           <h2>My Todos</h2>
           <ul>
               {todos.map((todo) => (
-                  <li key={todo.id}>
+                 <li key={todo.id}>
                       <input 
                         type='checkbox'
                         id={todo.id}
@@ -84,14 +92,28 @@ function TodoApp() {
                         onChange={() => handleCheckboxChange(todo.id)}
                         key={todo.id}
                         /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>
-                        {todo.name} </span>
+                        {editingTodo && editingTodo.id === todo.id ? (
+                            <input 
+                                type='text' 
+                                value={editingTodo.name} 
+                                onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
+                            />
+                        ) : (
+                            todo.name
+                        )}
+                      </span>
+                      {editingTodo && editingTodo.id === todo.id ? (
+                          <button onClick={() => handleSaveEdit(todo.id, editingTodo.name)} className="buttonSave">Save</button>
+                      ) : (
+                          <button onClick={() => handleEdit(todo.id)} className="buttonEdit">Edit</button>
+                      )}
                       <button 
                         onClick={() => handleDelete(todo.id)} 
                         className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
                         disabled={!todo.done}
-                        >  Delete Todo
+                        > Delete Todo
                       </button>
-                  </li>
+                 </li>
               ))}
           </ul>
       </div>
@@ -99,6 +121,6 @@ function TodoApp() {
       </main>
       </>
       );
-  }
+ }
 
-  export default TodoApp;
+ export default TodoApp;
