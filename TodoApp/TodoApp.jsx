@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 function TodoApp() {
     // states
     const initialTodos = JSON.parse(localStorage.getItem('todos')) || [
-      { name: 'Learn React', id: 0, done: false },
-      { name: 'Be Awesome!', id: 1, done: false },
-      { name: 'Finish this app', id: 2, done: false },
+      { name: 'Write my first todo', id: 0, done: false },
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [newTodo, setNewTodo] = useState('');
@@ -60,24 +58,21 @@ function TodoApp() {
     // affichage (render)
     return (
       <>
-      <div className="container">
       <section className='title-page'>
-          <h1>My Todo App</h1>
+          <h1>My Todo list</h1>
       </section>
+      <main className="container">
   
-      <hr />
-  
-      <section className='add-section'>
+      <section className="content">
+      <div className='add-section'>
           <form action="submit" onSubmit={handleSubmit} className='add-form'>
               <input value={newTodo} type='text' className='add-input' placeholder='Type a new Todo' onChange={handleChange}/>
               <button type='submit' className='add-button'>Add Todo</button>
           </form>
-      </section>
+      </div>
   
-      <hr />
-  
-      <section className="todo-list">
-          <h2>Todos</h2>
+      <div className="todo-list">
+          <h2>My Todos</h2>
           <ul>
               {todos.map((todo) => (
                   <li key={todo.id}>
@@ -88,19 +83,20 @@ function TodoApp() {
                         checked={todo.done}
                         onChange={() => handleCheckboxChange(todo.id)}
                         key={todo.id}
-                      /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>
+                        /> <span className={`todo-name ${todo.done ? 'strikeThrough' : ''}`}>
                         {todo.name} </span>
                       <button 
                         onClick={() => handleDelete(todo.id)} 
                         className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
                         disabled={!todo.done}
-                      >  Delete Todo
+                        >  Delete Todo
                       </button>
                   </li>
               ))}
           </ul>
-      </section>
       </div>
+      </section>
+      </main>
       </>
       );
   }
