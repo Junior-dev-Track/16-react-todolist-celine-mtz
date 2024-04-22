@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 
 function TodoApp() {
     // states
+    const firstTodo = { name: 'Write my first todo', id: 0, done: false };
     const initialTodos = JSON.parse(localStorage.getItem('todos')) || [
-      { name: 'Write my first todo', id: 0, done: false },
+      firstTodo,
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [newTodo, setNewTodo] = useState('');
     const [editingTodo, setEditingTodo] = useState(null);
+    const [reinitializeKey, setReinitializeKey] = useState(0);
 
     // Save list
     useEffect(() => {
@@ -65,6 +67,12 @@ function TodoApp() {
       const todoCopyUpdated = todoCopy.filter((todo) => todo.id !== id);
       setTodos(todoCopyUpdated);
     };
+
+    const reinitializeTodoList = () => {
+      localStorage.removeItem('todos');
+      setTodos([firstTodo]);
+      setReinitializeKey(prevKey => prevKey + 1);
+    }
 
     // affichage (render)
     return (
@@ -126,6 +134,9 @@ function TodoApp() {
                  </li>
               ))}
           </ul>
+      </div>
+      <div key={reinitializeKey}>
+        <button className='buttonReinitialize' onClick={reinitializeTodoList}>Reinitialize Todo List</button>
       </div>
       </section>
       </main>
