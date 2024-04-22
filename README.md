@@ -1,3 +1,9 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/RjkAbPQL)
-# react-todolist
-Exercise for 16-React-Basics
+# TODO list
+
+This little application consist on a Todo list app. This was an exercise done during the Becode training course to learn React.
+
+Here's a preview of my application:
+![preview](image.png)
+
+You can test it by following this link :
+!https://my-todo-app-celine-mtz.netlify.app/
