@@ -100,21 +100,27 @@ function TodoApp() {
                                 type='text' 
                                 value={editingTodo.name} 
                                 onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
-                            />
+                                onKeyPress={(e) => {
+                                  if (e.key == 'Enter') {
+                                    handleSaveEdit(todo.id, editingTodo.name);
+                                  }
+                                }}
+                                />
                         ) : (
                             todo.name
                         )}
                       </span>
                       {editingTodo && editingTodo.id === todo.id ? (
-                          <button onClick={() => handleSaveEdit(todo.id, editingTodo.name)} className="buttonSave">Save</button>
+                            <button type='submit' onClick={() => handleSaveEdit(todo.id, editingTodo.name)} className="buttonSave">Save</button>
                       ) : (
-                          <button onClick={() => handleEdit(todo.id)} className="buttonEdit">Edit</button>
+                        <button onClick={() => handleEdit(todo.id)} className="buttonEdit">Edit</button>
                       )}
+
                       <button 
-                        onClick={() => handleDelete(todo.id)} 
-                        className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
-                        disabled={!todo.done}
-                        > Delete Todo
+                      onClick={() => handleDelete(todo.id)} 
+                      className={`buttonDelete ${todo.done ? 'buttonDeleteChecked' : ''}`}
+                      disabled={!todo.done}
+                      > Delete Todo
                       </button>
                  </li>
               ))}
