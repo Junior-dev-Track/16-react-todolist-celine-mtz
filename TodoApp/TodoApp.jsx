@@ -18,12 +18,15 @@ function TodoApp() {
     const handleSubmit = (event) => {
       event.preventDefault();
       
-      const id = new Date().getTime();
-      const name = newTodo;
-
-      const todoToAdd = {name, id, done: false};
-      handleAdd(todoToAdd);
-      setNewTodo('');
+      if(newTodo === '') return alert('Please enter a todo');
+      else {
+        const id = new Date().getTime();
+        const name = newTodo;
+  
+        const todoToAdd = {name, id, done: false};
+        handleAdd(todoToAdd);
+        setNewTodo('');
+      }
     };
 
     const handleAdd = (todoToAdd) => {
