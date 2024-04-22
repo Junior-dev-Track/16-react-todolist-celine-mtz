@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function TodoApp() {
+function TodoApp() {
     // states
     const initialTodos = [
       { title: 'Learn React', id: 0, checked: false },
@@ -8,20 +8,40 @@ export default function TodoApp() {
       { title: 'Finish this app', id: 2, checked: false },
     ];
     const [todos, setTodos] = useState(initialTodos);
+    const [newTodo, setNewTodo] = useState('');
 
     // comportements
-  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      
+      const id = new Date().getTime();
+      const title = newTodo;
+
+      const todoToAdd = {title, id, checked: false};
+      handleAdd(todoToAdd);
+      setNewTodo('');
+    };
+
+    const handleAdd = (todoToAdd) => {
+      const todoCopy = [...todos];
+      todoCopy.push(todoToAdd);
+      setTodos(todoCopy);
+    };
+
+    const handleChange = (event) => {
+      setNewTodo(event.target.value);
+    };
+
     const handleCheckboxChange = (id) => {
       setTodos(todos.map(todo =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo
       ));
     }
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log("coucou")
-      //TODO finish here
-      // https://codesandbox.io/p/sandbox/learn-react-in-1h-nn9jxj?file=%2Fsrc%2FApp.js%3A35%2C11-35%2C21
+    const handleDelete = (id) => {
+      const todoCopy = [...todos];
+      const todoCopyUpdated = todoCopy.filter((todo) => todo.id !== id);
+      setTodos(todoCopyUpdated);
     };
 
     // affichage (render)
@@ -36,7 +56,7 @@ export default function TodoApp() {
   
       <section className='add-section'>
           <form action="submit" onSubmit={handleSubmit} className='add-form'>
-              <input type='text' className='add-input' placeholder='Type a new Todo'/>
+              <input value={newTodo} type='text' className='add-input' placeholder='Type a new Todo' onChange={handleChange}/>
               <button type='submit' className='add-button'>Add Todo</button>
           </form>
       </section>
@@ -52,7 +72,8 @@ export default function TodoApp() {
                         type='checkbox'
                         checked={todo.checked}
                         onChange={() => handleCheckboxChange(todo.id)}
-                      /> {todo.title}
+                        key={todo.id}
+                      /> {todo.title} <button onClick={() => handleDelete(todo.id)} className='buttonDelete'>Delete Todo</button>
                   </li>
               ))}
           </ul>
@@ -61,3 +82,5 @@ export default function TodoApp() {
       </>
       );
   }
+
+  export default TodoApp;

@@ -50,11 +50,23 @@ hr {
 ul {
   list-style-type: none;
   padding: 0;
+  line-height: 2rem;
 }
 
 h2 {
   margin: 0;
 }
+
+.buttonDelete {
+  background-color: #ff0000;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 5px 10px;
+  cursor: pointer;
+
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
