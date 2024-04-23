@@ -23,7 +23,7 @@ function TodoApp() {
       todoCopy.push(todoToAdd);
       setTodos(todoCopy);
     };
-    
+
     const reinitializeTodoList = () => {
       localStorage.removeItem('todos');
       setTodos([firstTodo]);
@@ -40,7 +40,9 @@ function TodoApp() {
       <main className="container">
         <section className="content">
           <div className='add-section'>
-            <TodoForm handleAdd={handleAdd} />
+            <TodoForm 
+              handleAdd={handleAdd} 
+              />
           </div>
     
           <div className="todo-list">
@@ -48,6 +50,7 @@ function TodoApp() {
               <ul>
                   {todos.map((todo) => (
                     <Todo 
+                      key={todo.id}
                       todos={todos}
                       todoInfo={todo} 
                       editingTodo={editingTodo}
@@ -59,7 +62,13 @@ function TodoApp() {
           </div>
 
           <div key={reinitializeKey}>
-            <button className='buttonReinitialize' onClick={reinitializeTodoList}>Reinitialize Todo List</button>
+            <button
+              type='button'
+              className='buttonReinitialize'
+              onClick={reinitializeTodoList}
+            >
+              Reinitialize Todo List
+            </button>
           </div>
         </section>
       </main>

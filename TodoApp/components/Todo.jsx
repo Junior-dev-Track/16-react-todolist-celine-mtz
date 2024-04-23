@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Todo({ todos, todoInfo, editingTodo, setTodos, setEditingTodo }) {
-    // const [editingTodo, setEditingTodo] = useState(null);
+    const todoInfoID = todoInfo.id;
 
     const handleDelete = (id) => {
         const todoCopy = [...todos];
@@ -31,16 +31,16 @@ export default function Todo({ todos, todoInfo, editingTodo, setTodos, setEditin
       };
 
     return (
-        <li key={todoInfo.id}>
+        <li>
             <input 
-            type='checkbox'
-            id={todoInfo.id}
-            name={todoInfo.name}
-            checked={todoInfo.done}
-            onChange={() => handleCheckboxChange(todoInfo.id)}
-            key={todoInfo.id}
-            /> <span className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
-            {editingTodo && editingTodo.id === todoInfo.id ? (
+                type='checkbox'
+                id='todoInfoID'
+                name={todoInfo.name}
+                checked={todoInfo.done}
+                onChange={() => handleCheckboxChange(todoInfoID)}
+            /> 
+            <label htmlFor='todoInfoID' className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
+            {editingTodo && editingTodo.id === todoInfoID ? (
                 <input 
                     type='text' 
                     value={editingTodo.name}
@@ -48,25 +48,39 @@ export default function Todo({ todos, todoInfo, editingTodo, setTodos, setEditin
                     onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
                     onKeyPress={(e) => {
                         if (e.key == 'Enter') {
-                        handleSaveEdit(todoInfo.id, editingTodo.name);
+                        handleSaveEdit(todoInfoID, editingTodo.name);
                         }
                     }}
                     />
             ) : (
                 todoInfo.name
             )}
-            </span>
-            {editingTodo && editingTodo.id === todoInfo.id ? (
-                <button type='submit' onClick={() => handleSaveEdit(todoInfo.id, editingTodo.name)} className="buttonSave">Save</button>
+            </label>
+            {editingTodo && editingTodo.id === todoInfoID ? (
+                <button 
+                    type='submit'
+                    onClick={() => handleSaveEdit(todoInfoID, editingTodo.name)}
+                    className="buttonSave"
+                >
+                    Save
+                </button>
             ) : (
-                <button onClick={() => handleEdit(todoInfo.id)} className="buttonEdit">Edit</button>
+                <button 
+                    type='button'
+                    onClick={() => handleEdit(todoInfoID)} 
+                    className="buttonEdit"
+                >
+                    Edit
+                </button>
             )}
 
             <button 
-            onClick={() => handleDelete(todoInfo.id)} 
-            className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
-            disabled={!todoInfo.done}
-            > Delete Todo
+                onClick={() => handleDelete(todoInfoID)} 
+                className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
+                disabled={!todoInfo.done}
+                type='button'
+            > 
+                Delete Todo
             </button>
         </li>
     );
