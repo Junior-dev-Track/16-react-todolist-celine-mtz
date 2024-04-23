@@ -1,14 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-html {
+html, body {
+  width: 100%;
   height: 100%;
-  background-image: linear-gradient(180deg, #cdffcc, #9af998)
+  margin: 0;
+  padding: 0;
+ }
+
+body {
+  background-image: linear-gradient(to bottom, #cdffcc, #9af998);
 }
 
 :root {
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   text-align: center;
+  margin: auto;
 }
 
 .container {
@@ -76,7 +83,6 @@ p {
 
 .todo-list {
   padding: 1rem;
-  min-width: 300px;
   max-width: 450px;
   margin: auto;
 }
@@ -109,12 +115,17 @@ li {
   margin: 5px auto;
 }
 
+.checkbox-item {
+  display: flex;
+  gap: 5px;
+}
+
 .strikeThrough {
   text-decoration: line-through;
 }
 
 h2 {
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 
 .todo-name {
@@ -142,7 +153,6 @@ h2 {
   color: #ffffff;
   padding: 5px 10px;
   opacity: 0.5;
-  margin-left: auto;
   font-size: 1rem;
 }
 
@@ -158,12 +168,41 @@ h2 {
   margin: 10px auto;
 }
 
+.buttonReinitializeIcon,
+.buttonDeleteManyTodoIcon {
+  display: none;
+}
+
+.icon {
+  width: 20px;
+  height: auto;
+}
+
 @media screen and (max-width: 425px) {
   .root {
-    width: 80%;
     font-size: 13px;
   }
+
+  .container {
+    width: 100%;
+  }
+
   .todo-list {
     width: 80%;
+  }
+
+  .buttonReinitializeText,
+  .buttonDeleteManyTodoText {
+    display: none;
+  }
+  .buttonReinitializeIcon,
+  .buttonDeleteManyTodoIcon {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  li {
+    flex-direction: column;
   }
 }

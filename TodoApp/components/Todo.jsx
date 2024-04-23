@@ -35,30 +35,33 @@ export default function Todo({ todos, todoInfo, setTodos }) {
 
     return (
         <li>
-            <input 
-                type='checkbox'
-                id={`${todoInfoID}`}
-                name={todoInfo.name}
-                checked={todoInfo.done}
-                onChange={() => handleCheckboxChange(todoInfoID)}
-            /> 
-            <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
-            {editingTodo && editingTodo.id === todoInfoID ? (
+            {/* <div className="checkbox-item"> */}
                 <input 
-                    type='text' 
-                    value={editingTodo.name}
-                    className="editInput"
-                    onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
-                    onKeyPress={(e) => {
-                        if (e.key == 'Enter') {
-                        handleSaveEdit(todoInfoID, editingTodo.name);
-                        }
-                    }}
-                    />
-            ) : (
-                todoInfo.name
-            )}
-            </label>
+                    type='checkbox'
+                    id={`${todoInfoID}`}
+                    name={todoInfo.name}
+                    checked={todoInfo.done}
+                    onChange={() => handleCheckboxChange(todoInfoID)}
+                /> 
+                <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
+                {editingTodo && editingTodo.id === todoInfoID ? (
+                    <input 
+                        type='text' 
+                        value={editingTodo.name}
+                        className="editInput"
+                        onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
+                        onKeyPress={(e) => {
+                            if (e.key == 'Enter') {
+                            handleSaveEdit(todoInfoID, editingTodo.name);
+                            }
+                        }}
+                        />
+                ) : (
+                    todoInfo.name
+                )}
+                </label>
+            {/* </div> */}
+
             {editingTodo && editingTodo.id === todoInfoID ? (
                 <button 
                     type='submit'
@@ -73,7 +76,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
                     onClick={() => handleEdit(todoInfoID)} 
                     className="buttonEdit"
                 >
-                    Edit
+                    <img class='icon' src="../src/assets/pen.png" alt="edit todo" />
                 </button>
             )}
 
@@ -83,7 +86,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
                 disabled={!todoInfo.done}
                 type='button'
             > 
-                Delete Todo
+                <img class='icon' src="../src/assets/bin.png" alt="delete todo" />
             </button>
         </li>
     );
