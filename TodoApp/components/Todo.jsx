@@ -4,6 +4,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
     const [editingTodo, setEditingTodo] = useState(null);
     
     const todoInfoID = todoInfo.id;
+    console.log(todoInfoID)
 
     const handleDelete = (id) => {
         const todoCopy = [...todos];
@@ -36,12 +37,12 @@ export default function Todo({ todos, todoInfo, setTodos }) {
         <li>
             <input 
                 type='checkbox'
-                id='todoInfoID'
+                id={`${todoInfoID}`}
                 name={todoInfo.name}
                 checked={todoInfo.done}
                 onChange={() => handleCheckboxChange(todoInfoID)}
             /> 
-            <label htmlFor='todoInfoID' className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
+            <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
             {editingTodo && editingTodo.id === todoInfoID ? (
                 <input 
                     type='text' 

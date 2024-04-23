@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
+
+const LSKEY = 'MyTodoApp';
 
 function TodoApp() {
     // states
     const firstTodo = { name: 'Write my first todo', id: 0, done: false };
-    const initialTodos = JSON.parse(localStorage.getItem('todos')) || [
+    const initialTodos = JSON.parse(localStorage.getItem(LSKEY + '.todos')) || [
       firstTodo,
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [reinitializeKey, setReinitializeKey] = useState(0);
     
+    // const anyDoneTodo = false;
 
     // Save list
     useEffect(() => {
-      localStorage.setItem('todos', JSON.stringify(todos));
+      window.localStorage.setItem(LSKEY + '.todos', JSON.stringify(todos));
     }, [todos]);
 
     // comportements
@@ -28,6 +31,27 @@ function TodoApp() {
       localStorage.removeItem('todos');
       setTodos([firstTodo]);
       setReinitializeKey(prevKey => prevKey + 1);
+    }
+
+    const nbrTodoDone = () => {
+      let nbrDone = 0;
+      todos.forEach(todo => {
+        if(todo.done) nbrDone++;
+      });
+      return nbrDone;
+    }
+
+    const deleteDoneTodos = () => {
+      const todoCopy = [...todos];
+      const todoCopyUpdated = todoCopy.filter((todo) => todo.done === false);
+      setTodos(todoCopyUpdated);
+    }
+
+    const checkAnyDoneTodo = () => {
+      let anyDoneTodo = false;
+      const todoCopy = [...todos];
+      anyDoneTodo = todoCopy.some((todo) => todo.done === true);
+      return anyDoneTodo;
     }
 
     // affichage (render)
@@ -47,6 +71,10 @@ function TodoApp() {
     
           <div className="todo-list">
               <h2>My Todos</h2>
+              <div className="stats-todo">
+                <p className="nbr-todo">Created tasks: {todos.length}</p>
+                <p className="nbr-done">Done: {nbrTodoDone()} on {todos.length}</p>
+              </div>
               <ul>
                   {todos.map((todo) => (
                     <Todo 
@@ -57,16 +85,29 @@ function TodoApp() {
                     />
                   ))}
               </ul>
-          </div>
 
-          <div key={reinitializeKey}>
-            <button
-              type='button'
-              className='buttonReinitialize'
-              onClick={reinitializeTodoList}
-            >
-              Reinitialize Todo List
-            </button>
+              <div key={reinitializeKey} class='delete-div'>
+                <div>
+                  <button
+                    type='button'
+                    className='buttonReinitialize'
+                    onClick={reinitializeTodoList}
+                    >
+                    Reinitialize Todo List
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    type='button'
+                    className={`buttonDeleteManyTodo ${checkAnyDoneTodo() ? 'buttonDeleteManyTodoChecked' : ''}`}
+                    // className="buttonDeleteManyTodo"
+                    onClick={deleteDoneTodos}
+                    >
+                      Delete finished Todos
+                  </button>
+                </div>
+              </div>
           </div>
         </section>
       </main>
