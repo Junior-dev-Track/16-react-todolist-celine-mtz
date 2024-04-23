@@ -2,8 +2,7 @@ import { useState, useRef } from "react";
 
 export default function TodoForm({ handleAdd }) {
     // states
-    // const [newTodo, setNewTodo] = useState('');
-    const inputRef = useRef(null);
+    const inputRef = useRef();
 
     // comportements
     const handleSubmit = (event) => {
@@ -22,18 +21,16 @@ export default function TodoForm({ handleAdd }) {
         inputRef.current.value = '';
     };
 
-    // const handleChange = (event) => {
-    //     setNewTodo(event.target.value);
-    // };
-
     // render
     return (
-        <form action="submit" onSubmit={handleSubmit} className='add-form'>
+        <form 
+            action="submit" 
+            onSubmit={handleSubmit} 
+            className='add-form' >
             <input 
                 type='text' 
                 className='add-input' 
                 placeholder='Type a new Todo' 
-                // onChange={handleChange}
                 ref={inputRef} />
             <button type='submit' className='add-button'>Add Todo</button>
         </form>

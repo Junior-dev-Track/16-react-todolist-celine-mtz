@@ -10,7 +10,7 @@ function TodoApp() {
     ];
     const [todos, setTodos] = useState(initialTodos);
     const [reinitializeKey, setReinitializeKey] = useState(0);
-    const [editingTodo, setEditingTodo] = useState(null);
+    
 
     // Save list
     useEffect(() => {
@@ -53,9 +53,7 @@ function TodoApp() {
                       key={todo.id}
                       todos={todos}
                       todoInfo={todo} 
-                      editingTodo={editingTodo}
                       setTodos={setTodos}
-                      setEditingTodo={setEditingTodo}
                     />
                   ))}
               </ul>

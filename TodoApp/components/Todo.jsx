@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-export default function Todo({ todos, todoInfo, editingTodo, setTodos, setEditingTodo }) {
+export default function Todo({ todos, todoInfo, setTodos }) {
+    const [editingTodo, setEditingTodo] = useState(null);
+    
     const todoInfoID = todoInfo.id;
 
     const handleDelete = (id) => {
