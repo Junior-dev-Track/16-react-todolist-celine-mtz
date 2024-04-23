@@ -35,7 +35,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
 
     return (
         <li>
-            {/* <div className="checkbox-item"> */}
+            <div className="checkbox-item">
                 <input 
                     type='checkbox'
                     id={`${todoInfoID}`}
@@ -60,34 +60,36 @@ export default function Todo({ todos, todoInfo, setTodos }) {
                     todoInfo.name
                 )}
                 </label>
-            {/* </div> */}
+            </div>
+            
+            <div className="edit-delete-button">
+                {editingTodo && editingTodo.id === todoInfoID ? (
+                    <button 
+                        type='submit'
+                        onClick={() => handleSaveEdit(todoInfoID, editingTodo.name)}
+                        className="buttonSave"
+                    >
+                        Save
+                    </button>
+                ) : (
+                    <button 
+                        type='button'
+                        onClick={() => handleEdit(todoInfoID)} 
+                        className="buttonEdit"
+                    >
+                        <img class='icon' src="../src/assets/pen.png" alt="edit todo" />
+                    </button>
+                )}
 
-            {editingTodo && editingTodo.id === todoInfoID ? (
                 <button 
-                    type='submit'
-                    onClick={() => handleSaveEdit(todoInfoID, editingTodo.name)}
-                    className="buttonSave"
-                >
-                    Save
-                </button>
-            ) : (
-                <button 
+                    onClick={() => handleDelete(todoInfoID)} 
+                    className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
+                    disabled={!todoInfo.done}
                     type='button'
-                    onClick={() => handleEdit(todoInfoID)} 
-                    className="buttonEdit"
-                >
-                    <img class='icon' src="../src/assets/pen.png" alt="edit todo" />
+                > 
+                    <img class='icon' src="../src/assets/bin.png" alt="delete todo" />
                 </button>
-            )}
-
-            <button 
-                onClick={() => handleDelete(todoInfoID)} 
-                className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
-                disabled={!todoInfo.done}
-                type='button'
-            > 
-                <img class='icon' src="../src/assets/bin.png" alt="delete todo" />
-            </button>
+            </div>
         </li>
     );
 }
