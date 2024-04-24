@@ -94,7 +94,7 @@ function TodoApp() {
                     onClick={reinitializeTodoList}
                     >
                       <span class='buttonReinitializeText'>Reinitialize Todo List</span>
-                      <img src="../src/sync.png" alt="Reinitialize Todo List" class='buttonReinitializeIcon icon'/>
+                      <img src="TodoApp/src/sync.png" alt="Reinitialize Todo List" class='buttonReinitializeIcon icon'/>
                   </button>
                 </div>
 
@@ -106,7 +106,7 @@ function TodoApp() {
                     onClick={deleteDoneTodos}
                     >
                       <span class='buttonDeleteManyTodoText'>Delete finished Todos</span>
-                      <img src="../src/deleteAll.png" alt="Delete finished Todos" class='buttonDeleteManyTodoIcon icon'/>
+                      <img src="TodoApp/src/deleteAll.png" alt="Delete finished Todos" class='buttonDeleteManyTodoIcon icon'/>
                   </button>
                 </div>
               </div>
