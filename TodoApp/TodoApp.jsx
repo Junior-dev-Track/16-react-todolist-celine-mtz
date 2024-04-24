@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
 
 const LSKEY = 'MyTodoApp';
 
 function TodoApp() {
+    const filterRef = useRef();
     // states
-    const firstTodo = { name: 'Write my first todo', id: 0, done: false };
+    const firstTodo = { 
+      name: 'Write my first todo', 
+      id: 0, 
+      done: false,
+      category: 'None'
+    };
     const initialTodos = JSON.parse(localStorage.getItem(LSKEY + '.todos')) || [
       firstTodo,
     ];
     const [todos, setTodos] = useState(initialTodos);
+    const [filteredTodos, setFilteredTodos] = useState(todos);
     const [reinitializeKey, setReinitializeKey] = useState(0);
     
     // const anyDoneTodo = false;
@@ -25,11 +32,13 @@ function TodoApp() {
       const todoCopy = [...todos];
       todoCopy.push(todoToAdd);
       setTodos(todoCopy);
+      setFilteredTodos(todoCopy);
     };
 
     const reinitializeTodoList = () => {
       localStorage.removeItem('todos');
       setTodos([firstTodo]);
+      setFilteredTodos([firstTodo]);
       setReinitializeKey(prevKey => prevKey + 1);
     }
 
@@ -54,6 +63,16 @@ function TodoApp() {
       return anyDoneTodo;
     }
 
+    const handleFilter = () => {
+      const todoCopy = [...todos];
+      if(filterRef.current.value === 'All')
+        setFilteredTodos(todoCopy);
+      else {
+        const todoFiltered = todoCopy.filter((todo) => todo.category === filterRef.current.value);
+        setFilteredTodos(todoFiltered);
+      }
+    }
+
     // affichage (render)
     return (
       <>
@@ -71,12 +90,28 @@ function TodoApp() {
     
           <div className="todo-list">
               <h2>My Todos</h2>
+              
               <div className="stats-todo">
                 <p className="nbr-todo">Created tasks: {todos.length}</p>
                 <p className="nbr-done">Done: {nbrTodoDone()} on {todos.length}</p>
               </div>
+
+              <div className="filter-todos">
+                <select 
+                  name='category' 
+                  id='category-filter' 
+                  className='category-select'
+                  onChange={handleFilter}
+                  ref={filterRef}>
+                    <option value="All">All</option>
+                    <option value="None">No category</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                </select>
+              </div>
+              
               <ul>
-                  {todos.map((todo) => (
+                  {filteredTodos.map((todo) => (
                     <Todo 
                       key={todo.id}
                       todos={todos}
@@ -94,7 +129,7 @@ function TodoApp() {
                     onClick={reinitializeTodoList}
                     >
                       <span class='buttonReinitializeText'>Reinitialize Todo List</span>
-                      <img src="TodoApp/src/sync.png" alt="Reinitialize Todo List" class='buttonReinitializeIcon icon'/>
+                      <img type="image/png" src="TodoApp/src/sync.png" alt="Reinitialize Todo List" class='buttonReinitializeIcon icon'/>
                   </button>
                 </div>
 
@@ -102,11 +137,10 @@ function TodoApp() {
                   <button
                     type='button'
                     className={`buttonDeleteManyTodo ${checkAnyDoneTodo() ? 'buttonDeleteManyTodoChecked' : ''}`}
-                    // className="buttonDeleteManyTodo"
                     onClick={deleteDoneTodos}
                     >
                       <span class='buttonDeleteManyTodoText'>Delete finished Todos</span>
-                      <img src="TodoApp/src/deleteAll.png" alt="Delete finished Todos" class='buttonDeleteManyTodoIcon icon'/>
+                      <img type="image/png" src="TodoApp/src/deleteAll.png" alt="Delete finished Todos" class='buttonDeleteManyTodoIcon icon'/>
                   </button>
                 </div>
               </div>

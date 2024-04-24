@@ -4,7 +4,6 @@ export default function Todo({ todos, todoInfo, setTodos }) {
     const [editingTodo, setEditingTodo] = useState(null);
     
     const todoInfoID = todoInfo.id;
-    console.log(todoInfoID)
 
     const handleDelete = (id) => {
         const todoCopy = [...todos];
@@ -25,70 +24,76 @@ export default function Todo({ todos, todoInfo, setTodos }) {
     const handleEdit = (id) => {
         const todo = todos.find(todo => todo.id === id);
         setEditingTodo(todo);
-      };
+    };
   
-      const handleSaveEdit = (id, newName) => {
-        const newTodos = todos.map(todo => todo.id === id ? {...todo, name: newName } : todo);
-        setTodos(newTodos);
-        setEditingTodo(null); // Corrected typo and state variable name
-      };
+    const handleSaveEdit = (id, newName) => {
+    const newTodos = todos.map(todo => todo.id === id ? {...todo, name: newName } : todo);
+    setTodos(newTodos);
+    setEditingTodo(null); // Corrected typo and state variable name
+    };
 
     return (
         <li>
-            <div className="checkbox-item">
-                <input 
-                    type='checkbox'
-                    id={`${todoInfoID}`}
-                    name={todoInfo.name}
-                    checked={todoInfo.done}
-                    onChange={() => handleCheckboxChange(todoInfoID)}
-                /> 
-                <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
-                {editingTodo && editingTodo.id === todoInfoID ? (
+            <div className="todo-label-operatations">
+                <div className="checkbox-item">
                     <input 
-                        type='text' 
-                        value={editingTodo.name}
-                        className="editInput"
-                        onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
-                        onKeyPress={(e) => {
-                            if (e.key == 'Enter') {
-                            handleSaveEdit(todoInfoID, editingTodo.name);
-                            }
-                        }}
-                        />
-                ) : (
-                    todoInfo.name
-                )}
-                </label>
-            </div>
-            
-            <div className="edit-delete-button">
-                {editingTodo && editingTodo.id === todoInfoID ? (
-                    <button 
-                        type='submit'
-                        onClick={() => handleSaveEdit(todoInfoID, editingTodo.name)}
-                        className="buttonSave"
-                    >
-                        Save
-                    </button>
-                ) : (
-                    <button 
-                        type='button'
-                        onClick={() => handleEdit(todoInfoID)} 
-                        className="buttonEdit"
-                    >
-                        <img class='icon' src="TodoApp/src/pen.png" alt="edit todo" />
-                    </button>
-                )}
+                        type='checkbox'
+                        id={`${todoInfoID}`}
+                        name={todoInfo.name}
+                        checked={todoInfo.done}
+                        onChange={() => handleCheckboxChange(todoInfoID)}
+                    /> 
+                    <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
+                    {editingTodo && editingTodo.id === todoInfoID ? (
+                        <input 
+                            type='text' 
+                            value={editingTodo.name}
+                            className="editInput"
+                            onChange={(e) => setEditingTodo({ ...editingTodo, name: e.target.value })}
+                            onKeyPress={(e) => {
+                                if (e.key == 'Enter') {
+                                handleSaveEdit(todoInfoID, editingTodo.name);
+                                }
+                            }}
+                            />
+                    ) : (
+                        todoInfo.name
+                    )}
+                    </label>
+                </div>
+                
+                <div className="edit-delete-button">
+                    {editingTodo && editingTodo.id === todoInfoID ? (
+                        <button 
+                            type='submit'
+                            onClick={() => handleSaveEdit(todoInfoID, editingTodo.name)}
+                            className="buttonSave"
+                        >
+                            Save
+                        </button>
+                    ) : (
+                        <button 
+                            type='button'
+                            onClick={() => handleEdit(todoInfoID)} 
+                            className="buttonEdit"
+                        >
+                            <img type="image/png" className='icon' src="TodoApp/src/pen.png" alt="edit todo" />
+                        </button>
+                    )}
 
-                <button 
-                    onClick={() => handleDelete(todoInfoID)} 
-                    className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
-                    disabled={!todoInfo.done}
-                    type='button'
-                > 
-                    <img class='icon' src="TodoApp/src/bin.png" alt="delete todo" />
-                </button>
+                    <button 
+                        onClick={() => handleDelete(todoInfoID)} 
+                        className={`buttonDelete ${todoInfo.done ? 'buttonDeleteChecked' : ''}`}
+                        disabled={!todoInfo.done}
+                        type='button'
+                    > 
+                        <img type="image/png" className='icon' src="TodoApp/src/bin.png" alt="delete todo" />
+                    </button>
+                </div>
+            </div>
+
+            <div className="todo-category">
+                <p>Category: {todoInfo.category}</p>
             </div>
         </li>
     );

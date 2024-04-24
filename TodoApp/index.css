@@ -2,7 +2,7 @@
 
 html, body {
   width: 100%;
-  height: 100%;
+  height: auto;
   margin: 0;
   padding: 0;
  }
@@ -56,6 +56,11 @@ p {
   align-items: center;
 }
 
+.todo-choices {
+  display: flex;
+  gap: 10px;
+}
+
 .add-input, 
 .editInput {
   background-color: #e9e9e9;
@@ -69,6 +74,16 @@ p {
 
 .editInput{
   text-align: left;
+}
+
+.category-select {
+  background-color: #e9e9e9;
+  border: 1px solid #bdbcbc;
+  color: #4f4f4f;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .add-button {
@@ -107,12 +122,21 @@ ul {
 
 li {
   display: flex;
-  gap: 15px;
-  justify-content: space-between;
+  flex-direction: column;
+  /* gap: 15px; */
+  /* justify-content: space-between; */
+  
   align-items: center;
   text-align: left;
   line-height: 1.5rem;
   margin: 5px auto;
+}
+
+.todo-label-operatations {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 /* TODO: max-width ? for long todo */
