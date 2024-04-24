@@ -77,7 +77,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
                         onClick={() => handleEdit(todoInfoID)} 
                         className="buttonEdit"
                     >
-                        <img class='icon' src="../src/assets/pen.png" alt="edit todo" />
+                        <img class='icon' src="../src/pen.png" alt="edit todo" />
                     </button>
                 )}
 
@@ -87,7 +87,7 @@ export default function Todo({ todos, todoInfo, setTodos }) {
                     disabled={!todoInfo.done}
                     type='button'
                 > 
-                    <img class='icon' src="../src/assets/bin.png" alt="delete todo" />
+                    <img class='icon' src="../src/bin.png" alt="delete todo" />
                 </button>
             </div>
         </li>
