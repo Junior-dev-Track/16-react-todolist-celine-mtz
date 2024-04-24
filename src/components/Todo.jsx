@@ -1,15 +1,16 @@
 import { useState } from "react";
 
-export default function Todo({ todos, todoInfo, setTodos }) {
+export default function Todo({ todos, todoInfo, setTodos, handleDelete }) {
     const [editingTodo, setEditingTodo] = useState(null);
     
     const todoInfoID = todoInfo.id;
 
-    const handleDelete = (id) => {
-        const todoCopy = [...todos];
-        const todoCopyUpdated = todoCopy.filter((todo) => todo.id !== id);
-        setTodos(todoCopyUpdated);
-    };
+    // const handleDelete = (id) => {
+    //     const todoCopy = [...todos];
+    //     const todoCopyUpdated = todoCopy.filter((todo) => todo.id !== id);
+    //     setTodos(todoCopyUpdated)
+    //     setFilteredTodos(todoCopyUpdated);
+    // };
 
     const handleCheckboxChange = (id) => {
         const newTodos = todos.map((todo) => {

@@ -54,6 +54,7 @@ function TodoApp() {
       const todoCopy = [...todos];
       const todoCopyUpdated = todoCopy.filter((todo) => todo.done === false);
       setTodos(todoCopyUpdated);
+      setFilteredTodos(todoCopyUpdated);
     }
 
     const checkAnyDoneTodo = () => {
@@ -72,6 +73,12 @@ function TodoApp() {
         setFilteredTodos(todoFiltered);
       }
     }
+
+    const handleDelete = (id) => {
+      const todoCopyUpdated = todos.filter((todo) => todo.id !== id);
+      setTodos(todoCopyUpdated);
+      setFilteredTodos(todoCopyUpdated);
+    };
 
     // affichage (render)
     return (
@@ -117,6 +124,8 @@ function TodoApp() {
                       todos={todos}
                       todoInfo={todo} 
                       setTodos={setTodos}
+                      // setfilteredTodos={setFilteredTodos}
+                      handleDelete={handleDelete}
                     />
                   ))}
               </ul>
