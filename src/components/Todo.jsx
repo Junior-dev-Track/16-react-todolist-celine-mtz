@@ -5,13 +5,6 @@ export default function Todo({ todos, todoInfo, setTodos, handleDelete }) {
     
     const todoInfoID = todoInfo.id;
 
-    // const handleDelete = (id) => {
-    //     const todoCopy = [...todos];
-    //     const todoCopyUpdated = todoCopy.filter((todo) => todo.id !== id);
-    //     setTodos(todoCopyUpdated)
-    //     setFilteredTodos(todoCopyUpdated);
-    // };
-
     const handleCheckboxChange = (id) => {
         const newTodos = todos.map((todo) => {
           if (todo.id === id) {
@@ -44,7 +37,7 @@ export default function Todo({ todos, todoInfo, setTodos, handleDelete }) {
                         checked={todoInfo.done}
                         onChange={() => handleCheckboxChange(todoInfoID)}
                     /> 
-                    <label htmlFor={`${todoInfoID}`} className={`todo-name ${todoInfo.done ? 'strikeThrough' : ''}`}>
+                    <label htmlFor={`${todoInfoID}`} className={`todo-name${todoInfo.done ? 'strikeThrough' : ''}`}>
                     {editingTodo && editingTodo.id === todoInfoID ? (
                         <input 
                             type='text' 
@@ -78,7 +71,7 @@ export default function Todo({ todos, todoInfo, setTodos, handleDelete }) {
                             onClick={() => handleEdit(todoInfoID)} 
                             className="buttonEdit"
                         >
-                            <img className='icon' src="../src/images/pen.png" alt="edit todo" />
+                            <img className='icon' src="/images/pen.png" alt="edit todo" />
                         </button>
                     )}
 
@@ -88,7 +81,7 @@ export default function Todo({ todos, todoInfo, setTodos, handleDelete }) {
                         disabled={!todoInfo.done}
                         type='button'
                     > 
-                        <img className='icon' src="../src/images/bin.png" alt="delete todo" />
+                        <img className='icon' src="/images/bin.png" alt="delete todo" />
                     </button>
                 </div>
             </div>
