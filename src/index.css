@@ -1,20 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 html {
-  width: 100%;
-  height: 700px;
+  width: 100vw;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-body {
   background-image: linear-gradient(to bottom, #cdffcc, #9af998);
 }
 
@@ -222,6 +219,10 @@ h2 {
 
   .todo-list {
     width: 80%;
+  }
+
+  .todo-choices {
+    flex-direction: column;
   }
 
   .buttonReinitializeText,
